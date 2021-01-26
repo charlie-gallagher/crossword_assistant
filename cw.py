@@ -12,6 +12,15 @@ class CwSyntaxError(Exception):
     def __str__(self):
         return f'Error: {self.message}'
 
+class CwValueError(Exception):
+    def __init__(self, message):
+        if message is not None:
+            self.message = message
+        else:
+            self.message = "No message given"
+
+    def __str__(self):
+        return f'Error: {self.message}'
 
 # Parse conditions
 def is_length(arg_str):
@@ -36,7 +45,6 @@ def is_expr(arg_str):
 
 
 # Parse command-line
-# TODO: Make this more restrictive
 def cw_parse_cl(args):
     out = dict(length=0, letters=list(), positions=list())
     if len(args) == 1:
@@ -57,6 +65,15 @@ def cw_parse_cl(args):
         raise CwSyntaxError("Must have length argument")
     return out
 
+
+# TODO: Make this more restrictive
+def cw_check_cl(cl_dict):
+    # Highest letter <= length of word
+    l = cl_dict['length']
+    pos = cl_dict['positions']
+
+    if  l < max(pos):
+        raise CwValueError(f"Letter implies word longer than length ({cl_dict['length']})")
 
 # Generate regular expression from parsed commands
 def cw_gen_regex(letters, positions, length):

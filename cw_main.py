@@ -5,6 +5,7 @@ from pathlib import Path
 
 def main():
     arg_dict = cw.cw_parse_cl(sys.argv)
+    cw.cw_check_cl(arg_dict)
     tmp_reg = cw.cw_gen_regex(arg_dict["letters"],
                            arg_dict["positions"],
                            arg_dict["length"])
