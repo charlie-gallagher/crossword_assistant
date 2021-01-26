@@ -1,5 +1,7 @@
 import cw
 import sys
+from pathlib import Path
+
 
 def main():
     arg_dict = cw.cw_parse_cl(sys.argv)
@@ -7,9 +9,9 @@ def main():
                            arg_dict["positions"],
                            arg_dict["length"])
     print("Linux words\n-----------")
-    cw.cw_search_words(tmp_reg, "wordlists\linuxwords.txt")
+    cw.cw_search_words(tmp_reg, Path("wordlists", "linuxwords.txt"))
     print("\nCrossword Nexus words\n-----------")
-    cw.cw_search_words(tmp_reg, "wordlists\crossword_nexus_wordlist.txt")
+    cw.cw_search_words(tmp_reg, Path("wordlists", "crossword_nexus_wordlist.txt"))
 
 
 if __name__ == '__main__':
